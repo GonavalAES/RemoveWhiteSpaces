@@ -1,0 +1,232 @@
+﻿<Window x:Class="RemoveWhiteSpaces.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RemoveWhiteSpaces"
+        mc:Ignorable="d"
+        Title="White Space Remover - AI Prompt Code Packer"
+        Height="620" Width="1100" MinHeight="420" MinWidth="700"
+        Background="#1E1E2E"
+        FontFamily="Constantia">
+    <Window.Resources>
+        <!-- Pane label style -->
+        <Style x:Key="PaneLabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#A0A8C0"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+        </Style>
+
+        <!-- Code TextBox style -->
+        <Style x:Key="CodeBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#13131F"/>
+            <Setter Property="Foreground" Value="#CDD6F4"/>
+            <Setter Property="BorderBrush" Value="#313244"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Consolas, Courier New"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="AcceptsTab" Value="True"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="CaretBrush" Value="#CDD6F4"/>
+            <Setter Property="SelectionBrush" Value="#45475A"/>
+        </Style>
+
+        <!-- Primary action button -->
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#89B4FA"/>
+            <Setter Property="Foreground" Value="#1E1E2E"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="20,9"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#B4D0FF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#6A9FE0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Secondary action button -->
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#313244"/>
+            <Setter Property="Foreground" Value="#CDD6F4"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#45475A"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#262637"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Clear/danger button -->
+        <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource SecondaryButtonStyle}">
+            <Setter Property="Foreground" Value="#F38BA8"/>
+        </Style>
+
+        <!-- Stats chip -->
+        <Style x:Key="StatChipStyle" TargetType="Border">
+            <Setter Property="Background" Value="#181825"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="10,4"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header -->
+            <RowDefinition Height="Auto"/>
+            <!-- Options bar -->
+            <RowDefinition Height="*"/>
+            <!-- Panes -->
+            <RowDefinition Height="Auto"/>
+            <!-- Status bar -->
+        </Grid.RowDefinitions>
+
+        <!-- ═══ HEADER ═══ -->
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <TextBlock Text="CODE COMPRESSOR" Foreground="#89B4FA" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="Strip comments · Collapse whitespace · Paste" Foreground="#585B70" FontSize="11" Margin="1,3,0,0"/>
+            </StackPanel>
+
+            <!-- Convert button (top-right, prominent) -->
+            <Button Grid.Column="1" x:Name="BtnConvert" Content="Convert" Style="{StaticResource PrimaryButtonStyle}" Click="BtnConvert_Click" ToolTip="Strip comments, blank lines and extra whitespace (Ctrl+Enter)"/>
+        </Grid>
+
+        <!-- ═══ OPTIONS BAR ═══ -->
+        <Border Grid.Row="1" Background="#181825" CornerRadius="6" Padding="14,10" Margin="0,0,0,12">
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock Text="Strip:" Foreground="#585B70" FontSize="11" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                <CheckBox x:Name="ChkLineComments" Content="// line comments" IsChecked="True" Foreground="#A0A8C0" FontSize="11" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                <CheckBox x:Name="ChkBlockComments" Content="/* block comments */" IsChecked="True" Foreground="#A0A8C0" FontSize="11" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                <CheckBox x:Name="ChkXmlDocComments" Content="/// XML doc comments" IsChecked="True" Foreground="#A0A8C0" FontSize="11" VerticalAlignment="Center" Margin="0,0,24,0"/>
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="0,0,24,0"/>
+                <CheckBox x:Name="ChkBlankLines" Content="Blank lines" IsChecked="True" Foreground="#A0A8C0" FontSize="11" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                <CheckBox x:Name="ChkCollapseToOneLine" Content="Collapse to single line" IsChecked="True" Foreground="#A0A8C0" FontSize="11" VerticalAlignment="Center" Margin="0,0,0,0"/>
+            </WrapPanel>
+        </Border>
+
+        <!-- ═══ TWO-PANE AREA ═══ -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <!-- Gutter -->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LEFT PANE: Input -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="INPUT — Paste your code here" Style="{StaticResource PaneLabelStyle}"/>
+                    <Button Grid.Column="1" Content="Clear" Style="{StaticResource DangerButtonStyle}" Padding="10,4" Click="BtnClearInput_Click"/>
+                </Grid>
+
+                <TextBox Grid.Row="1" x:Name="TxtInput" Style="{StaticResource CodeBoxStyle}" VerticalAlignment="Stretch" TextChanged="TxtInput_TextChanged" ToolTip="Paste C# (or other) code here. Use Ctrl+Enter to convert."/>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,6,0,0">
+                    <Border Style="{StaticResource StatChipStyle}" Margin="0,0,8,0">
+                        <TextBlock x:Name="TxtInputLines" Text="0 lines" Foreground="#585B70" FontSize="11"/>
+                    </Border>
+                    <Border Style="{StaticResource StatChipStyle}">
+                        <TextBlock x:Name="TxtInputChars" Text="0 chars" Foreground="#585B70" FontSize="11"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <!-- Gutter arrow -->
+            <TextBlock Grid.Column="1" Text="›" FontSize="24" Foreground="#313244" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <!-- RIGHT PANE: Output -->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="OUTPUT — Compressed, ready to paste" Style="{StaticResource PaneLabelStyle}"/>
+                    <Button Grid.Column="1" Content="📋  Copy" Style="{StaticResource SecondaryButtonStyle}" Padding="10,4" Click="BtnCopy_Click" ToolTip="Copy output to clipboard"/>
+                    <Button Grid.Column="3" Content="💾  Save TXT" Style="{StaticResource SecondaryButtonStyle}" Padding="10,4" Click="BtnSave_Click" ToolTip="Save output as a UTF-8 .txt file"/>
+                </Grid>
+
+                <TextBox Grid.Row="1" x:Name="TxtOutput" Style="{StaticResource CodeBoxStyle}" IsReadOnly="True" VerticalAlignment="Stretch"/>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,6,0,0">
+                    <Border Style="{StaticResource StatChipStyle}" Margin="0,0,8,0">
+                        <TextBlock x:Name="TxtOutputLines" Text="0 lines" Foreground="#585B70" FontSize="11"/>
+                    </Border>
+                    <Border Style="{StaticResource StatChipStyle}" Margin="0,0,8,0">
+                        <TextBlock x:Name="TxtOutputChars" Text="0 chars" Foreground="#585B70" FontSize="11"/>
+                    </Border>
+                    <Border Style="{StaticResource StatChipStyle}">
+                        <TextBlock x:Name="TxtSavings" Text="—" Foreground="#A6E3A1" FontSize="11"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!-- ═══ STATUS BAR ═══ -->
+        <Border Grid.Row="3" Margin="0,12,0,0">
+            <TextBlock x:Name="TxtStatus" Text="Ready. Paste code in the left pane and press Convert." Foreground="#585B70" FontSize="11" HorizontalAlignment="Right"/>
+        </Border>
+    </Grid>
+</Window>
