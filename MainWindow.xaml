@@ -10,70 +10,49 @@
         Background="#1E1E2E"
         FontFamily="Constantia">
     <Window.Resources>
-        <!-- Pane label style -->
-        <Style x:Key="PaneLabelStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#A0A8C0"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Margin" Value="0,0,0,6"/>
-        </Style>
+        <!-- ── Shared colours ─────────────────────────────────────────── -->
+        <SolidColorBrush x:Key="BgBase"      Color="#1E1E2E"/>
+        <SolidColorBrush x:Key="BgMantle"    Color="#181825"/>
+        <SolidColorBrush x:Key="BgSurface0"  Color="#313244"/>
+        <SolidColorBrush x:Key="BgSurface1"  Color="#45475A"/>
+        <SolidColorBrush x:Key="TextMain"    Color="#CDD6F4"/>
+        <SolidColorBrush x:Key="TextMuted"   Color="#585B70"/>
+        <SolidColorBrush x:Key="TextSubtle"  Color="#A0A8C0"/>
+        <SolidColorBrush x:Key="Accent"      Color="#89B4FA"/>
+        <SolidColorBrush x:Key="AccentHover" Color="#B4D0FF"/>
+        <SolidColorBrush x:Key="AccentPress" Color="#6A9FE0"/>
+        <SolidColorBrush x:Key="Red"         Color="#F38BA8"/>
+        <SolidColorBrush x:Key="Green"       Color="#A6E3A1"/>
+        <SolidColorBrush x:Key="Yellow"      Color="#F9E2AF"/>
 
-        <!-- Code TextBox style -->
+        <!-- ── Code TextBox ───────────────────────────────────────────── -->
         <Style x:Key="CodeBoxStyle" TargetType="TextBox">
-            <Setter Property="Background" Value="#13131F"/>
-            <Setter Property="Foreground" Value="#CDD6F4"/>
-            <Setter Property="BorderBrush" Value="#313244"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="FontFamily" Value="Consolas, Courier New"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Padding" Value="12"/>
-            <Setter Property="AcceptsReturn" Value="True"/>
-            <Setter Property="AcceptsTab" Value="True"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="Background"                    Value="#13131F"/>
+            <Setter Property="Foreground"                    Value="{StaticResource TextMain}"/>
+            <Setter Property="BorderBrush"                   Value="{StaticResource BgSurface0}"/>
+            <Setter Property="BorderThickness"               Value="1"/>
+            <Setter Property="FontFamily"                    Value="Consolas, Courier New"/>
+            <Setter Property="FontSize"                      Value="12.5"/>
+            <Setter Property="Padding"                       Value="10"/>
+            <Setter Property="AcceptsReturn"                 Value="True"/>
+            <Setter Property="AcceptsTab"                    Value="True"/>
+            <Setter Property="TextWrapping"                  Value="Wrap"/>
+            <Setter Property="VerticalScrollBarVisibility"   Value="Auto"/>
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
-            <Setter Property="CaretBrush" Value="#CDD6F4"/>
-            <Setter Property="SelectionBrush" Value="#45475A"/>
+            <Setter Property="CaretBrush"                    Value="{StaticResource TextMain}"/>
+            <Setter Property="SelectionBrush"                Value="{StaticResource BgSurface0}"/>
+            <Setter Property="AllowDrop"                     Value="True"/>
         </Style>
 
-        <!-- Primary action button -->
-        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#89B4FA"/>
-            <Setter Property="Foreground" Value="#1E1E2E"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Padding" Value="20,9"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="6"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#B4D0FF"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#6A9FE0"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Secondary action button -->
-        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#313244"/>
-            <Setter Property="Foreground" Value="#CDD6F4"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Padding" Value="14,8"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
+        <!-- ── Primary button ────────────────────────────────────────── -->
+        <Style x:Key="PrimaryBtn" TargetType="Button">
+            <Setter Property="Background"       Value="{StaticResource Accent}"/>
+            <Setter Property="Foreground"       Value="{StaticResource BgBase}"/>
+            <Setter Property="FontWeight"       Value="Bold"/>
+            <Setter Property="FontSize"         Value="13"/>
+            <Setter Property="Padding"          Value="20,8"/>
+            <Setter Property="BorderThickness"  Value="0"/>
+            <Setter Property="Cursor"           Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -82,10 +61,13 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#45475A"/>
+                                <Setter Property="Background" Value="{StaticResource AccentHover}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#262637"/>
+                                <Setter Property="Background" Value="{StaticResource AccentPress}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.4"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -93,70 +75,185 @@
             </Setter>
         </Style>
 
-        <!-- Clear/danger button -->
-        <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource SecondaryButtonStyle}">
-            <Setter Property="Foreground" Value="#F38BA8"/>
+        <!-- ── Secondary button ──────────────────────────────────────── -->
+        <Style x:Key="SecondaryBtn" TargetType="Button">
+            <Setter Property="Background"       Value="{StaticResource BgSurface0}"/>
+            <Setter Property="Foreground"       Value="{StaticResource TextMain}"/>
+            <Setter Property="FontSize"         Value="11.5"/>
+            <Setter Property="Padding"          Value="11,6"/>
+            <Setter Property="BorderThickness"  Value="0"/>
+            <Setter Property="Cursor"           Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource BgSurface1}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#262637"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.35"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
-        <!-- Stats chip -->
-        <Style x:Key="StatChipStyle" TargetType="Border">
-            <Setter Property="Background" Value="#181825"/>
-            <Setter Property="CornerRadius" Value="4"/>
-            <Setter Property="Padding" Value="10,4"/>
+        <!-- ── Danger button ─────────────────────────────────────────── -->
+        <Style x:Key="DangerBtn" TargetType="Button" BasedOn="{StaticResource SecondaryBtn}">
+            <Setter Property="Foreground" Value="{StaticResource Red}"/>
         </Style>
+
+        <!-- ── Toggle button (Always on Top / Auto-convert) ──────────── -->
+        <Style x:Key="ToggleBtn" TargetType="ToggleButton">
+            <Setter Property="Background"       Value="{StaticResource BgSurface0}"/>
+            <Setter Property="Foreground"       Value="{StaticResource TextSubtle}"/>
+            <Setter Property="FontSize"         Value="11.5"/>
+            <Setter Property="Padding"          Value="11,6"/>
+            <Setter Property="BorderThickness"  Value="0"/>
+            <Setter Property="Cursor"           Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#2A3A5A"/>
+                                <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource BgSurface1}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ── Stat chip ─────────────────────────────────────────────── -->
+        <Style x:Key="StatChip" TargetType="Border">
+            <Setter Property="Background"   Value="{StaticResource BgMantle}"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding"      Value="9,3"/>
+        </Style>
+
+        <!-- ── Pane label ─────────────────────────────────────────────── -->
+        <Style x:Key="PaneLabel" TargetType="TextBlock">
+            <Setter Property="Foreground"  Value="{StaticResource TextSubtle}"/>
+            <Setter Property="FontSize"    Value="10.5"/>
+            <Setter Property="FontWeight"  Value="SemiBold"/>
+            <Setter Property="Margin"      Value="0,0,0,5"/>
+        </Style>
+
+        <!-- ── Options CheckBox ───────────────────────────────────────── -->
+        <Style x:Key="OptCheck" TargetType="CheckBox">
+            <Setter Property="Foreground"         Value="{StaticResource TextSubtle}"/>
+            <Setter Property="FontSize"           Value="11.5"/>
+            <Setter Property="VerticalAlignment"  Value="Center"/>
+            <Setter Property="Margin"             Value="0,0,14,0"/>
+            <Setter Property="Cursor"             Value="Hand"/>
+        </Style>
+
+        <!-- ── Chunk nav button ───────────────────────────────────────── -->
+        <Style x:Key="ChunkBtn" TargetType="Button" BasedOn="{StaticResource SecondaryBtn}">
+            <Setter Property="Padding"   Value="8,4"/>
+            <Setter Property="FontSize"  Value="13"/>
+        </Style>
+
+        <!-- ── Expander header ────────────────────────────────────────── -->
+        <Style x:Key="ExpanderStyle" TargetType="Expander">
+            <Setter Property="Foreground" Value="{StaticResource TextSubtle}"/>
+            <Setter Property="FontSize"   Value="11.5"/>
+            <Setter Property="Margin"     Value="0,6,0,0"/>
+        </Style>
+
     </Window.Resources>
 
-    <Grid Margin="20">
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- Root grid                                                        -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <Grid Margin="18">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Header -->
+            <!-- 0: Header -->
             <RowDefinition Height="Auto"/>
-            <!-- Options bar -->
+            <!-- 1: Options bar -->
             <RowDefinition Height="*"/>
-            <!-- Panes -->
+            <!-- 2: Main panes -->
             <RowDefinition Height="Auto"/>
-            <!-- Status bar -->
+            <!-- 3: Custom patterns -->
+            <RowDefinition Height="Auto"/>
+            <!-- 4: Status bar -->
         </Grid.RowDefinitions>
 
-        <!-- ═══ HEADER ═══ -->
-        <Grid Grid.Row="0" Margin="0,0,0,16">
+        <!-- ══ ROW 0: HEADER ══════════════════════════════════════════ -->
+        <Grid Grid.Row="0" Margin="0,0,0,14">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Orientation="Vertical">
-                <TextBlock Text="CODE COMPRESSOR" Foreground="#89B4FA" FontSize="18" FontWeight="Bold"/>
-                <TextBlock Text="Strip comments · Collapse whitespace · Paste" Foreground="#585B70" FontSize="11" Margin="1,3,0,0"/>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="CODE COMPRESSOR" Foreground="{StaticResource Accent}" FontSize="17" FontWeight="Bold"/>
+                <TextBlock Text="Strip comments · Collapse whitespace · Chunk for AI prompts" Foreground="{StaticResource TextMuted}" FontSize="10.5" Margin="1,3,0,0"/>
             </StackPanel>
 
-            <!-- Convert button (top-right, prominent) -->
-            <Button Grid.Column="1" x:Name="BtnConvert" Content="Convert" Style="{StaticResource PrimaryButtonStyle}" Click="BtnConvert_Click" ToolTip="Strip comments, blank lines and extra whitespace (Ctrl+Enter)"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <ToggleButton x:Name="TglAlwaysOnTop" Content="📌 Always on Top" Style="{StaticResource ToggleBtn}" Margin="0,0,8,0" Checked="TglAlwaysOnTop_Changed" Unchecked="TglAlwaysOnTop_Changed" ToolTip="Keep this window above all others"/>
+                <Button x:Name="BtnConvert" Content="▶  Convert" Style="{StaticResource PrimaryBtn}" Click="BtnConvert_Click" ToolTip="Ctrl+Enter"/>
+            </StackPanel>
         </Grid>
 
-        <!-- ═══ OPTIONS BAR ═══ -->
-        <Border Grid.Row="1" Background="#181825" CornerRadius="6" Padding="14,10" Margin="0,0,0,12">
-            <WrapPanel Orientation="Horizontal">
-                <TextBlock Text="Strip:" Foreground="#585B70" FontSize="11" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                <CheckBox x:Name="ChkLineComments" Content="// line comments" IsChecked="True" Foreground="#A0A8C0" FontSize="11" VerticalAlignment="Center" Margin="0,0,16,0"/>
-                <CheckBox x:Name="ChkBlockComments" Content="/* block comments */" IsChecked="True" Foreground="#A0A8C0" FontSize="11" VerticalAlignment="Center" Margin="0,0,16,0"/>
-                <CheckBox x:Name="ChkXmlDocComments" Content="/// XML doc comments" IsChecked="True" Foreground="#A0A8C0" FontSize="11" VerticalAlignment="Center" Margin="0,0,24,0"/>
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="0,0,24,0"/>
-                <CheckBox x:Name="ChkBlankLines" Content="Blank lines" IsChecked="True" Foreground="#A0A8C0" FontSize="11" VerticalAlignment="Center" Margin="0,0,16,0"/>
-                <CheckBox x:Name="ChkCollapseToOneLine" Content="Collapse to single line" IsChecked="True" Foreground="#A0A8C0" FontSize="11" VerticalAlignment="Center" Margin="0,0,0,0"/>
-            </WrapPanel>
+        <!-- ══ ROW 1: OPTIONS BAR ════════════════════════════════════ -->
+        <Border Grid.Row="1" Background="{StaticResource BgMantle}" CornerRadius="6" Padding="14,9" Margin="0,0,0,10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Top sub-row: strip toggles -->
+                <WrapPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,7">
+                    <TextBlock Text="STRIP:"  Foreground="{StaticResource TextMuted}" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <CheckBox x:Name="ChkLineComments" Content="// line comments" Style="{StaticResource OptCheck}"/>
+                    <CheckBox x:Name="ChkBlockComments" Content="/* block */" Style="{StaticResource OptCheck}"/>
+                    <CheckBox x:Name="ChkXmlDocComments" Content="/// XML docs" Style="{StaticResource OptCheck}"/>
+                    <CheckBox x:Name="ChkBlankLines" Content="blank lines" Style="{StaticResource OptCheck}"/>
+                    <CheckBox x:Name="ChkCollapseToOneLine" Content="collapse to 1 line" Style="{StaticResource OptCheck}" Margin="0,0,0,0"/>
+                </WrapPanel>
+
+                <!-- Bottom sub-row: behaviour + chunking -->
+                <WrapPanel Grid.Row="1" Orientation="Horizontal">
+                    <TextBlock Text="BEHAVIOUR:" Foreground="{StaticResource TextMuted}" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <ToggleButton x:Name="TglAutoConvert" Content="⚡ Auto-convert on paste" Style="{StaticResource ToggleBtn}" Margin="0,0,16,0" ToolTip="Run conversion automatically whenever you paste into the input pane"/>
+
+                    <!-- Divider -->
+                    <Border Width="1" Background="{StaticResource BgSurface0}" Margin="0,0,16,0" VerticalAlignment="Stretch"/>
+
+                    <TextBlock Text="Max tokens / chunk:" Foreground="{StaticResource TextSubtle}" FontSize="11.5" VerticalAlignment="Center" Margin="0,0,6,0" ToolTip="Split output into chunks of this size (≈ chars ÷ 4). Set 0 to disable chunking."/>
+                    <TextBox x:Name="TxtMaxTokens" Width="70" Height="24" Background="#13131F" Foreground="{StaticResource TextMain}" BorderBrush="{StaticResource BgSurface0}" BorderThickness="1" FontFamily="Consolas" FontSize="12" Padding="5,2" VerticalContentAlignment="Center" Text="0" ToolTip="0 = no chunking"/>
+                    <TextBlock Text="(0 = off)" Foreground="{StaticResource TextMuted}" FontSize="10.5" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                </WrapPanel>
+            </Grid>
         </Border>
 
-        <!-- ═══ TWO-PANE AREA ═══ -->
+        <!-- ══ ROW 2: MAIN PANES ═════════════════════════════════════ -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="20"/>
-                <!-- Gutter -->
+                <ColumnDefinition Width="22"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- LEFT PANE: Input -->
+            <!-- ── LEFT: INPUT PANE ─────────────────────────────────── -->
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -164,69 +261,149 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Margin="0,0,0,6">
+                <!-- Input header -->
+                <Grid Grid.Row="0" Margin="0,0,0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="6"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="6"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="INPUT — Paste your code here" Style="{StaticResource PaneLabelStyle}"/>
-                    <Button Grid.Column="1" Content="Clear" Style="{StaticResource DangerButtonStyle}" Padding="10,4" Click="BtnClearInput_Click"/>
+                    <TextBlock Grid.Column="0" Text="INPUT — paste or drop files here" Style="{StaticResource PaneLabel}"/>
+                    <Button Grid.Column="1" Content="📂 Open File(s)" Style="{StaticResource SecondaryBtn}" Padding="9,4" Click="BtnOpenFiles_Click" ToolTip="Open one or more source files (text / code). Multiple files are concatenated."/>
+                    <Button Grid.Column="3" Content="Clear" Style="{StaticResource DangerBtn}" Padding="9,4" Click="BtnClearInput_Click"/>
+                    <!-- Paste button for discoverability -->
+                    <Button Grid.Column="5" Content="Paste" Style="{StaticResource SecondaryBtn}" Padding="9,4" Click="BtnPaste_Click" ToolTip="Paste clipboard content into the input pane (Ctrl+V also works)"/>
                 </Grid>
 
-                <TextBox Grid.Row="1" x:Name="TxtInput" Style="{StaticResource CodeBoxStyle}" VerticalAlignment="Stretch" TextChanged="TxtInput_TextChanged" ToolTip="Paste C# (or other) code here. Use Ctrl+Enter to convert."/>
+                <!-- Input TextBox with drag-drop -->
+                <Border Grid.Row="1" BorderBrush="{StaticResource BgSurface0}" BorderThickness="1" CornerRadius="4">
+                    <Grid>
+                        <TextBox x:Name="TxtInput" Style="{StaticResource CodeBoxStyle}" BorderThickness="0" TextChanged="TxtInput_TextChanged" PreviewDragOver="TxtInput_PreviewDragOver" Drop="TxtInput_Drop"/>
+                        <!-- Drop hint overlay (hidden once text is present) -->
+                        <TextBlock x:Name="TxtInputHint" Text="Paste code here, or drag and drop .cs / .txt files" Foreground="{StaticResource TextMuted}" FontFamily="Segoe UI" FontSize="12" FontStyle="Italic" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+                    </Grid>
+                </Border>
 
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,6,0,0">
-                    <Border Style="{StaticResource StatChipStyle}" Margin="0,0,8,0">
-                        <TextBlock x:Name="TxtInputLines" Text="0 lines" Foreground="#585B70" FontSize="11"/>
+                <!-- Input stats -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,0">
+                    <Border Style="{StaticResource StatChip}" Margin="0,0,6,0">
+                        <TextBlock x:Name="TxtInputLines" Text="0 lines" Foreground="{StaticResource TextMuted}" FontSize="11"/>
                     </Border>
-                    <Border Style="{StaticResource StatChipStyle}">
-                        <TextBlock x:Name="TxtInputChars" Text="0 chars" Foreground="#585B70" FontSize="11"/>
+                    <Border Style="{StaticResource StatChip}">
+                        <TextBlock x:Name="TxtInputChars" Text="0 chars" Foreground="{StaticResource TextMuted}" FontSize="11"/>
                     </Border>
                 </StackPanel>
             </Grid>
 
-            <!-- Gutter arrow -->
-            <TextBlock Grid.Column="1" Text="›" FontSize="24" Foreground="#313244" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <!-- ── GUTTER ARROW ──────────────────────────────────────── -->
+            <TextBlock Grid.Column="1" Text="›" FontSize="22" Foreground="{StaticResource BgSurface0}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <!-- RIGHT PANE: Output -->
+            <!-- ── RIGHT: OUTPUT PANE ────────────────────────────────── -->
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <!-- Output header -->
                     <RowDefinition Height="*"/>
+                    <!-- Output TextBox -->
                     <RowDefinition Height="Auto"/>
+                    <!-- Chunk navigator -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Output stats -->
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Margin="0,0,0,6">
+                <!-- Output header -->
+                <Grid Grid.Row="0" Margin="0,0,0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="6"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="OUTPUT — Compressed, ready to paste" Style="{StaticResource PaneLabelStyle}"/>
-                    <Button Grid.Column="1" Content="📋  Copy" Style="{StaticResource SecondaryButtonStyle}" Padding="10,4" Click="BtnCopy_Click" ToolTip="Copy output to clipboard"/>
-                    <Button Grid.Column="3" Content="💾  Save TXT" Style="{StaticResource SecondaryButtonStyle}" Padding="10,4" Click="BtnSave_Click" ToolTip="Save output as a UTF-8 .txt file"/>
+                    <TextBlock Grid.Column="0" Text="OUTPUT — compressed, ready to paste" Style="{StaticResource PaneLabel}"/>
+                    <Button Grid.Column="1" Content="📋 Copy All" Style="{StaticResource SecondaryBtn}" Padding="9,4" Click="BtnCopyAll_Click" ToolTip="Copy entire output to clipboard"/>
+                    <Button Grid.Column="3" Content="💾 Save TXT" Style="{StaticResource SecondaryBtn}" Padding="9,4" Click="BtnSave_Click" ToolTip="Save output as UTF-8 .txt file"/>
                 </Grid>
 
-                <TextBox Grid.Row="1" x:Name="TxtOutput" Style="{StaticResource CodeBoxStyle}" IsReadOnly="True" VerticalAlignment="Stretch"/>
+                <!-- Output TextBox -->
+                <Border Grid.Row="1" BorderBrush="{StaticResource BgSurface0}" BorderThickness="1" CornerRadius="4">
+                    <TextBox x:Name="TxtOutput" Style="{StaticResource CodeBoxStyle}" BorderThickness="0" IsReadOnly="True"/>
+                </Border>
 
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,6,0,0">
-                    <Border Style="{StaticResource StatChipStyle}" Margin="0,0,8,0">
-                        <TextBlock x:Name="TxtOutputLines" Text="0 lines" Foreground="#585B70" FontSize="11"/>
+                <!-- Chunk navigator (hidden when only one chunk) -->
+                <Border Grid.Row="2" x:Name="PnlChunkNav" Background="{StaticResource BgMantle}" CornerRadius="4" Padding="10,6" Margin="0,6,0,0" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" x:Name="BtnPrevChunk" Content="◀" Style="{StaticResource ChunkBtn}" Click="BtnPrevChunk_Click" ToolTip="Previous chunk"/>
+                        <TextBlock Grid.Column="1" x:Name="TxtChunkInfo" Text="Part 1 of 1" Foreground="{StaticResource TextSubtle}" FontSize="11.5" VerticalAlignment="Center" Margin="10,0"/>
+                        <Button Grid.Column="2" x:Name="BtnNextChunk" Content="▶" Style="{StaticResource ChunkBtn}" Click="BtnNextChunk_Click" ToolTip="Next chunk"/>
+                        <TextBlock Grid.Column="3" x:Name="TxtChunkTokenHint" Text="" Foreground="{StaticResource TextMuted}" FontSize="10.5" VerticalAlignment="Center" Margin="14,0,0,0"/>
+                        <Button Grid.Column="4" Content="📋 Copy This Chunk" Style="{StaticResource SecondaryBtn}" Click="BtnCopyChunk_Click" ToolTip="Copy only the currently visible chunk"/>
+                    </Grid>
+                </Border>
+
+                <!-- Output stats -->
+                <WrapPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,0,0">
+                    <Border Style="{StaticResource StatChip}" Margin="0,0,6,0">
+                        <TextBlock x:Name="TxtOutputLines" Text="0 lines" Foreground="{StaticResource TextMuted}" FontSize="11"/>
                     </Border>
-                    <Border Style="{StaticResource StatChipStyle}" Margin="0,0,8,0">
-                        <TextBlock x:Name="TxtOutputChars" Text="0 chars" Foreground="#585B70" FontSize="11"/>
+                    <Border Style="{StaticResource StatChip}" Margin="0,0,6,0">
+                        <TextBlock x:Name="TxtOutputChars" Text="0 chars" Foreground="{StaticResource TextMuted}" FontSize="11"/>
                     </Border>
-                    <Border Style="{StaticResource StatChipStyle}">
-                        <TextBlock x:Name="TxtSavings" Text="—" Foreground="#A6E3A1" FontSize="11"/>
+                    <Border Style="{StaticResource StatChip}" Margin="0,0,6,0">
+                        <TextBlock x:Name="TxtOutputTokens" Text="~0 tokens" Foreground="{StaticResource Accent}" FontSize="11" ToolTip="Estimated token count (chars ÷ 4). A rough guide for GPT / Claude context windows."/>
                     </Border>
-                </StackPanel>
+                    <Border Style="{StaticResource StatChip}">
+                        <TextBlock x:Name="TxtSavings" Text="—" Foreground="{StaticResource Green}" FontSize="11"/>
+                    </Border>
+                </WrapPanel>
             </Grid>
         </Grid>
 
-        <!-- ═══ STATUS BAR ═══ -->
-        <Border Grid.Row="3" Margin="0,12,0,0">
-            <TextBlock x:Name="TxtStatus" Text="Ready. Paste code in the left pane and press Convert." Foreground="#585B70" FontSize="11" HorizontalAlignment="Right"/>
-        </Border>
+        <!-- ══ ROW 3: CUSTOM PATTERNS ════════════════════════════════ -->
+        <Expander Grid.Row="3" Style="{StaticResource ExpanderStyle}" Header="⚙  Custom strip patterns (regex)" Foreground="{StaticResource TextSubtle}">
+            <Border Background="{StaticResource BgMantle}" CornerRadius="0,0,6,6" Padding="14,10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="220"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Pattern list -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Active patterns — matched text is removed from output before chunking:" Foreground="{StaticResource TextMuted}" FontSize="10.5" Margin="0,0,0,5"/>
+                        <ListBox Grid.Row="1" x:Name="LstPatterns" Background="#13131F" BorderBrush="{StaticResource BgSurface0}" Foreground="{StaticResource TextMain}" FontFamily="Consolas" FontSize="12" SelectionMode="Single"/>
+                    </Grid>
+
+                    <!-- Add / remove panel -->
+                    <StackPanel Grid.Column="2" VerticalAlignment="Top">
+                        <TextBlock Text="New pattern:" Foreground="{StaticResource TextMuted}" FontSize="10.5" Margin="0,0,0,4"/>
+                        <TextBox x:Name="TxtNewPattern" Background="#13131F" Foreground="{StaticResource TextMain}" BorderBrush="{StaticResource BgSurface0}" BorderThickness="1" FontFamily="Consolas" FontSize="12" Padding="6,4" Height="26" ToolTip="C# regular expression. Example:  \[Obsolete[^\]]*\]" KeyDown="TxtNewPattern_KeyDown"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                            <Button Content="Add" Style="{StaticResource SecondaryBtn}" Padding="14,5" Click="BtnAddPattern_Click" Margin="0,0,6,0"/>
+                            <Button Content="Remove Selected" Style="{StaticResource DangerBtn}" Padding="10,5" Click="BtnRemovePattern_Click"/>
+                        </StackPanel>
+                        <TextBlock Text="Example: \[Obsolete[^\]]*\]" Foreground="{StaticResource TextMuted}" FontFamily="Consolas" FontSize="10" Margin="0,8,0,0"/>
+                        <TextBlock Text="Example: #region.*|#endregion" Foreground="{StaticResource TextMuted}" FontFamily="Consolas" FontSize="10" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Expander>
+
+        <!-- ══ ROW 4: STATUS BAR ══════════════════════════════════════ -->
+        <TextBlock Grid.Row="4" x:Name="TxtStatus" Text="Ready. Paste code or drop files into the left pane, then press Convert (Ctrl+Enter)." Foreground="{StaticResource TextMuted}" FontSize="10.5" HorizontalAlignment="Right" Margin="0,8,0,0"/>
     </Grid>
 </Window>
