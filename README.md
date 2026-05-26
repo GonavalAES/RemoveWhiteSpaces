@@ -47,7 +47,7 @@ public static class GreaseCalcs { public static double ComputeGreasePressure(dou
 
 ## Screenshots
 
-![Assets/RemoveWhiteSpaces - Main Window.png]
+![RemoveWhiteSpaces - Main Window.png](Assets/RemoveWhiteSpaces - Main Window.png)
 
 ---
 
