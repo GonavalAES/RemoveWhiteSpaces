@@ -47,7 +47,7 @@ public static class GreaseCalcs { public static double ComputeGreasePressure(dou
 
 ## Screenshots
 
-> _Add your own screenshots here._
+![Assets/RemoveWhiteSpaces - Main Window.png]
 
 ---
 
@@ -63,7 +63,7 @@ public static class GreaseCalcs { public static double ComputeGreasePressure(dou
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/CodeCompressor.git
+git clone https://github.com/GonavalAES/RemoveWhiteSpaces.git
 cd CodeCompressor
 
 # Build and run
